@@ -11,5 +11,11 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-from .smallest_eigenvalue import smallest_ev  # noqa: F401
+
+"""CVXCLI package for command-line utilities related to convex optimization.
+
+This package provides command-line tools for working with convex optimization problems,
+including computing eigenvalues and retrieving weather data.
+"""
+
 from .weather import main  # noqa: F401

@@ -11,13 +11,19 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
+
+"""Module for retrieving weather data from the Open-Meteo API.
+
+This module provides a command-line interface for fetching current weather data
+for a specified location and metric using the Open-Meteo API.
+"""
+
 import fire  # type: ignore
 import requests  # type: ignore
 
 
 def cli(metric: str, latitude: float = 37.4419, longitude: float = -122.143) -> None:
-    """
-    Get the current weather for a given metric
+    """Get the current weather for a given metric.
 
     Parameters
     ----------
@@ -45,7 +51,5 @@ def cli(metric: str, latitude: float = 37.4419, longitude: float = -122.143) -> 
 
 
 def main():  # pragma: no cover
-    """
-    Run the CLI using Fire
-    """
+    """Run the CLI using Fire."""
     fire.Fire(cli)
