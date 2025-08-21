@@ -34,6 +34,10 @@ jobs:
       - name: Lint
         run: |
           task quality:lint
+  
+      - uses: cvxgrp/.github/actions/deptry@v2.1.1
+        with:
+          source-folder: 'src/cvx'
 
       - name: Format
         run: |
