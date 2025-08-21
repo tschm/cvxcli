@@ -1,30 +1,32 @@
+# Colors for pretty output
+BLUE := \033[36m
+BOLD := \033[1m
+GREEN := \033[32m
+RESET := \033[0m
+
 .DEFAULT_GOAL := help
 
-.PHONY: venv install fmt clean help test
+.PHONY: build clean book check
 
-venv:
-	curl -LsSf https://astral.sh/uv/install.sh | sh
-	uv venv --python '3.12'
+install: ## install
+	task build:install
 
-install: venv ## Install dependencies and setup environment
-	uv pip install --upgrade pip
-	uv sync --dev --frozen
+clean: ## clean
+	task cleanup:clean
 
-fmt: venv ## Format and lint code
-	uv pip install pre-commit
-	uv run pre-commit install
-	uv run pre-commit run --all-files
+test: install ## run all tests
+	task docs:test
 
-clean: ## Clean build artifacts and stale branches
-	git clean -X -d -f
-	git branch -v | grep "\[gone\]" | cut -f 3 -d ' ' | xargs git branch -D
+book: test ## compile the companion book
+	task docs:docs
+	task docs:marimushka
+	task docs:book
 
-test: install ## Run tests
-	uv pip install pytest
-	uv run pytest tests
+check: install ## check the pre-commit hooks, the linting and deptry
+	task quality:check
 
-help: ## Show this help message
-	@echo "Usage: make [target]"
-	@echo ""
-	@echo "Targets:"
-	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  %-15s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+help: ## Display this help message
+	@printf "$(BOLD)Usage:$(RESET)\n"
+	@printf "  make $(BLUE)<target>$(RESET)\n\n"
+	@printf "$(BOLD)Targets:$(RESET)\n"
+	@awk 'BEGIN {FS = ":.*##"; printf ""} /^[a-zA-Z_-]+:.*?##/ { printf "  $(BLUE)%-15s$(RESET) %s\n", $$1, $$2 } /^##@/ { printf "\n$(BOLD)%s$(RESET)\n", substr($$0, 5) }' $(MAKEFILE_LIST)
