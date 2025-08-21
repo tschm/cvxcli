@@ -2,7 +2,7 @@ from unittest import mock
 
 import pytest
 
-from src.cvx.cli import cli
+from cvx.cli import cli
 
 
 def test_weather():
