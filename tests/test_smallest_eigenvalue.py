@@ -1,6 +1,6 @@
 import pytest
 
-from cvx.cli.smallest_eigenvalue import smallest_ev
+from src.cvx.cli import smallest_ev
 
 
 def test_smallest_eigenvalue(resource_dir):
