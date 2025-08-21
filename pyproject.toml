@@ -23,17 +23,6 @@ dev = [
 
 [project.scripts]
 weather = "cvxcli.weather:main"
-smallest-eigenvalue = "cvxcli.smallest_eigenvalue:main"
-
-[tool.ruff]
-line-length = 120
-target-version = "py310"
-exclude = [
-    "*__init__.py"
-]
-
-[tool.ruff.lint]
-select = ["E", "F", "I"]
 
 [build-system]
 requires = ["hatchling"]
