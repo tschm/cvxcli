@@ -6,9 +6,7 @@ readme = "README.md"
 authors = [{name = "Thomas Schmelzer", email = "thomas.schmelzer@gmail.com"}]
 requires-python = ">=3.10"
 dependencies = [
-    "cvxbson>=0.1.0",
     "fire>=0.7.0",
-    "numpy>=2.2.1",
     "requests>=2.32.3",
 ]
 
@@ -47,6 +45,3 @@ packages = ["src/cvxcli"]
 [tool.deptry]
 # see https://deptry.com/usage/#pep-621-dev-dependency-groups
 pep621_dev_dependency_groups = ["dev"]
-
-[tool.deptry.package_module_name_map]
-cvxbson = ["cvx.bson"]

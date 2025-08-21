@@ -18,5 +18,4 @@ This package provides command-line tools for working with convex optimization pr
 including computing eigenvalues and retrieving weather data.
 """
 
-from .smallest_eigenvalue import smallest_ev  # noqa: F401
 from .weather import main  # noqa: F401
