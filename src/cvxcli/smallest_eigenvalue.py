@@ -15,7 +15,6 @@ from typing import Dict
 
 import fire  # type: ignore
 import numpy as np
-
 from cvx.bson.file import read_bson
 
 
