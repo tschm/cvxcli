@@ -11,16 +11,20 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-from typing import Dict
+
+"""Module for computing the smallest eigenvalue of matrices stored in BSON files.
+
+This module provides functionality to read matrices from BSON files and compute
+their smallest eigenvalues, which is useful in various convex optimization problems.
+"""
 
 import fire  # type: ignore
 import numpy as np
 from cvx.bson.file import read_bson
 
 
-def smallest_ev(bson_file) -> Dict[str, float]:
-    """
-    Compute the smallest eigenvalue of matrices stored in a bson file.
+def smallest_ev(bson_file) -> dict[str, float]:
+    """Compute the smallest eigenvalue of matrices stored in a bson file.
 
     There are faster methods to compute the smallest eigenvalue, e.g. an inverse power iteration.
     Here, we only use this as an example to work with the bson interface.
@@ -29,7 +33,6 @@ def smallest_ev(bson_file) -> Dict[str, float]:
 
     poetry run smallest-eigenvalue cli/data/test.bson
     """
-
     eigenvalues = {key: np.min(np.linalg.eigh(matrix)[0]) for key, matrix in read_bson(bson_file).items()}
 
     for key, ev in eigenvalues.items():
@@ -39,4 +42,8 @@ def smallest_ev(bson_file) -> Dict[str, float]:
 
 
 def main():  # pragma: no cover
+    """Command-line entry point for the smallest eigenvalue calculator.
+
+    Uses the Fire library to expose the smallest_ev function as a command-line tool.
+    """
     fire.Fire(smallest_ev)
