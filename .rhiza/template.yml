@@ -13,7 +13,7 @@ include:
 - pytest.ini
 - book
 - .rhiza
-- conftest.json
+- renovate.json
 exclude:
 - .github/workflows/docker.yml
 - .github/workflows/devcontainer.yml
