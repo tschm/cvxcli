@@ -44,3 +44,22 @@ def test_server_down():
     with mock.patch("requests.get", return_value=mock.Mock(status_code=500)):
         with pytest.raises(ConnectionError):
             cli("temperature")
+
+
+def test_timeout_parameter():
+    """Test that the weather API client includes a timeout parameter.
+
+    This test verifies that the cli function passes a timeout parameter
+    to requests.get to prevent hanging requests.
+    """
+    with mock.patch("requests.get") as mock_get:
+        mock_get.return_value = mock.Mock(
+            status_code=200,
+            json=lambda: {"current_weather": {"temperature": 20.0}},
+        )
+        cli("temperature")
+        mock_get.assert_called_once()
+        # Verify timeout parameter is present in the call
+        args, kwargs = mock_get.call_args
+        assert "timeout" in kwargs
+        assert kwargs["timeout"] == 10
