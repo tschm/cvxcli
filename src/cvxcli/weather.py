@@ -38,7 +38,7 @@ def cli(metric: str, latitude: float = 37.4419, longitude: float = -122.143) -> 
     """
     url = "https://api.open-meteo.com/v1/forecast"
     url = f"{url}?latitude={str(latitude)}&longitude={str(longitude)}&current_weather=true"
-    r = requests.get(url)
+    r = requests.get(url, timeout=10)
 
     if r.status_code == 200:
         if metric in r.json()["current_weather"]:
