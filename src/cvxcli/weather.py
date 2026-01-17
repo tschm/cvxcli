@@ -21,6 +21,25 @@ for a specified location and metric using the Open-Meteo API.
 import fire  # type: ignore
 import requests  # type: ignore
 
+# HTTP status code constants
+HTTP_OK = 200
+
+
+class MetricNotSupportedError(ValueError):
+    """Raised when an unsupported metric is requested."""
+
+    def __init__(self) -> None:
+        """Initialize the exception with a default message."""
+        super().__init__("Metric not supported!")
+
+
+class ServiceUnavailableError(ConnectionError):
+    """Raised when the Open-Meteo service is unavailable."""
+
+    def __init__(self) -> None:
+        """Initialize the exception with a default message."""
+        super().__init__("Open-Meteo is down!")
+
 
 def cli(metric: str, latitude: float = 37.4419, longitude: float = -122.143) -> None:
     """Get the current weather for a given metric.
@@ -40,14 +59,14 @@ def cli(metric: str, latitude: float = 37.4419, longitude: float = -122.143) -> 
     url = f"{url}?latitude={str(latitude)}&longitude={str(longitude)}&current_weather=true"
     r = requests.get(url, timeout=10)
 
-    if r.status_code == 200:
+    if r.status_code == HTTP_OK:
         if metric in r.json()["current_weather"]:
             x = r.json()["current_weather"][metric]
             return x
         else:
-            raise ValueError("Metric not supported!")
+            raise MetricNotSupportedError()
     else:
-        raise ConnectionError("Open-Meteo is down!")
+        raise ServiceUnavailableError()
 
 
 def main():  # pragma: no cover

@@ -8,7 +8,7 @@ from unittest import mock
 
 import pytest
 
-from cvxcli.weather import cli
+from cvxcli.weather import cli, MetricNotSupportedError, ServiceUnavailableError
 
 
 def test_weather():
@@ -28,10 +28,10 @@ def test_weather():
 def test_missing_metric():
     """Test that the weather API client properly handles invalid metrics.
 
-    This test verifies that the cli function raises a ValueError when
+    This test verifies that the cli function raises a MetricNotSupportedError when
     an unsupported metric name is provided.
     """
-    with pytest.raises(ValueError):
+    with pytest.raises(MetricNotSupportedError, match="Metric not supported!"):
         cli(metric="maffay")
 
 
@@ -39,10 +39,10 @@ def test_server_down():
     """Test that the weather API client properly handles server errors.
 
     This test mocks a 500 server response and verifies that the cli function
-    raises a ConnectionError when the API server returns an error status code.
+    raises a ServiceUnavailableError when the API server returns an error status code.
     """
     with mock.patch("requests.get", return_value=mock.Mock(status_code=500)):
-        with pytest.raises(ConnectionError):
+        with pytest.raises(ServiceUnavailableError):
             cli("temperature")
 
 
