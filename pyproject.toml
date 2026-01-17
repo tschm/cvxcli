@@ -31,3 +31,12 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/cvxcli"]
+
+[tool.deptry.package_module_name_map]
+fire = "fire"
+requests = "requests"
+mock = "mock"
+pandas = "pandas"
+numpy = "numpy"
+plotly = "plotly"
+marimo = "marimo"
