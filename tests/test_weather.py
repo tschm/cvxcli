@@ -8,7 +8,7 @@ from unittest import mock
 
 import pytest
 
-from cvxcli.weather import cli, MetricNotSupportedError, ServiceUnavailableError
+from cvxcli.weather import MetricNotSupportedError, ServiceUnavailableError, cli
 
 
 def test_weather():
@@ -41,9 +41,8 @@ def test_server_down():
     This test mocks a 500 server response and verifies that the cli function
     raises a ServiceUnavailableError when the API server returns an error status code.
     """
-    with mock.patch("requests.get", return_value=mock.Mock(status_code=500)):
-        with pytest.raises(ServiceUnavailableError):
-            cli("temperature")
+    with mock.patch("requests.get", return_value=mock.Mock(status_code=500)), pytest.raises(ServiceUnavailableError):
+        cli("temperature")
 
 
 def test_timeout_parameter():
@@ -60,6 +59,6 @@ def test_timeout_parameter():
         cli("temperature")
         mock_get.assert_called_once()
         # Verify timeout parameter is present in the call
-        args, kwargs = mock_get.call_args
+        _args, kwargs = mock_get.call_args
         assert "timeout" in kwargs
         assert kwargs["timeout"] == 10

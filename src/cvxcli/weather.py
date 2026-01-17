@@ -56,7 +56,7 @@ def cli(metric: str, latitude: float = 37.4419, longitude: float = -122.143) -> 
         The longitude to get the current weather for, by default -122.143
     """
     url = "https://api.open-meteo.com/v1/forecast"
-    url = f"{url}?latitude={str(latitude)}&longitude={str(longitude)}&current_weather=true"
+    url = f"{url}?latitude={latitude!s}&longitude={longitude!s}&current_weather=true"
     r = requests.get(url, timeout=10)
 
     if r.status_code == HTTP_OK:
