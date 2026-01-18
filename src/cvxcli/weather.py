@@ -18,6 +18,8 @@ This module provides a command-line interface for fetching current weather data
 for a specified location and metric using the Open-Meteo API.
 """
 
+from typing import Any
+
 import fire  # type: ignore
 import requests  # type: ignore
 
@@ -41,7 +43,7 @@ class ServiceUnavailableError(ConnectionError):
         super().__init__("Open-Meteo is down!")
 
 
-def cli(metric: str, latitude: float = 37.4419, longitude: float = -122.143) -> None:
+def cli(metric: str, latitude: float = 37.4419, longitude: float = -122.143) -> Any:
     """Get the current weather for a given metric.
 
     Parameters
@@ -69,6 +71,6 @@ def cli(metric: str, latitude: float = 37.4419, longitude: float = -122.143) -> 
         raise ServiceUnavailableError()
 
 
-def main():  # pragma: no cover
+def main() -> None:  # pragma: no cover
     """Run the CLI using Fire."""
     fire.Fire(cli)
