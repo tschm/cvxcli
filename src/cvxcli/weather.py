@@ -28,7 +28,13 @@ HTTP_OK = 200
 
 
 class MetricNotSupportedError(ValueError):
-    """Raised when an unsupported metric is requested."""
+    """Raised when an unsupported metric is requested.
+
+    >>> raise MetricNotSupportedError()
+    Traceback (most recent call last):
+        ...
+    cvxcli.weather.MetricNotSupportedError: Metric not supported!
+    """
 
     def __init__(self) -> None:
         """Initialize the exception with a default message."""
