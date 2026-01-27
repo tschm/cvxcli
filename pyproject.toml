@@ -1,6 +1,6 @@
 [project]
 name = "cvxcli"
-version = "0.0.0"
+version = "1.0.0"
 description = "Simple command line app demo"
 readme = "README.md"
 authors = [{name = "Thomas Schmelzer", email = "thomas.schmelzer@gmail.com"}]
